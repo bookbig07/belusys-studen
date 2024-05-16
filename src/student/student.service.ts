@@ -2,6 +2,7 @@ import { Injectable , NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { student } from './student.entity';
+import { createStudentInput } from './dto/student.input'
 
 @Injectable()
 export class studentService {
@@ -30,7 +31,7 @@ export class studentService {
         return foundStudent;
     }
 
-    create(students: student): Promise<student> {
+    create(students: createStudentInput): Promise<student> {
         return this.studentRepository.save(students);
     }
 

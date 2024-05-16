@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { classroom } from './classroom.entity';
 import { student } from '../student/student.entity';
+import { createClassroomInput } from './dto/classroom.input'
 
 @Injectable()
 export class classroomService {
@@ -49,7 +50,7 @@ export class classroomService {
         return foundClassrooms;
     }
 
-    create(classroom : classroom): Promise<classroom> {
+    create(classroom : createClassroomInput): Promise<classroom> {
         return this.classroomRepository.save(classroom);
     }
 
