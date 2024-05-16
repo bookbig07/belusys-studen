@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { StudentModule } from './student/student.module';
+import { ClassroomModule } from './classroom/classroom.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { GraphQLModule } from '@nestjs/graphql';
@@ -24,7 +25,8 @@ import { join } from 'path';
     //   driver: ApolloDriver,
     //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     // }),
-    StudentModule
+    StudentModule,
+    ClassroomModule
   ],
   controllers: [AppController],
   providers: [AppService],
