@@ -14,11 +14,8 @@ export class studenService {
         return this.studentRepository.find();
     }
 
-    findOne(id: number): Promise<student> {
-        const options: FindOneOptions<student> = {
-            where: { id }
-        };
-        return this.studentRepository.findOne(options);
+    async findOne(id: number): Promise<student[]> {
+        return this.studentRepository.find({ where: { id } });
     }
 
     create(students: student): Promise<student> {
