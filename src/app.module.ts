@@ -20,6 +20,10 @@ import { join } from 'path';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    // GraphQLModule.forRoot<ApolloDriverConfig>({
+    //   driver: ApolloDriver,
+    //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    // }),
     StudentModule
   ],
   controllers: [AppController],

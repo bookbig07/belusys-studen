@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { student } from './student.entity';
 
 @Injectable()
-export class studenService {
+export class studentService {
     constructor(
         @InjectRepository(student)
         private studentRepository: Repository<student>,

@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Param, Delete , Query } from '@nestjs/common';
-import { studenService } from './student.service';
+import { studentService } from './student.service';
 import { student } from './student.entity';
 
 @Controller('student')
 export class studentController {
     constructor(
-        private readonly studentService: studenService
+        private readonly studentService: studentService
     ) {}
 
     @Get()
