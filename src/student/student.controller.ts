@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete , Query } from '@nestjs/common';
 import { studenService } from './student.service';
 import { student } from './student.entity';
 
@@ -14,8 +14,8 @@ export class studentController {
     }
   
     @Get(':id')
-    findOne(@Param('id') id: string): Promise<student> {
-      return this.studentService.findOne(+id);
+    findbyId(@Param('id') id: string): Promise<student[]> {
+      return this.studentService.findbyId(+id);
     }
   
     @Post()
