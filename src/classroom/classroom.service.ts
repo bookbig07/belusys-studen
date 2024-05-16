@@ -25,10 +25,10 @@ export class classroomService {
         return foundClassroom;
     }
 
-    async findbyroomId(roomId: string): Promise<classroom[]> {
-        const foundClassrooms = await this.classroomRepository.find({ where: { roomNumber : roomId } });
+    async findbyroomId(roomNumber: string): Promise<classroom[]> {
+        const foundClassrooms = await this.classroomRepository.find({ where: { roomNumber : roomNumber } });
         if (!foundClassrooms || foundClassrooms.length === 0) {
-            throw new NotFoundException(`Classroom with room number ${roomId} not found`);
+            throw new NotFoundException(`Classroom with room number ${roomNumber} not found`);
         }
         return foundClassrooms;
     }

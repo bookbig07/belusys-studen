@@ -23,9 +23,9 @@ export class studentController {
       return this.studentService.findbystudentNumber(studentNumber);
     }
 
-    @Get('room/:roomId')
-    findByRoom(@Param('roomId') roomId: string): Promise<student[]> {
-        return this.studentService.findByRoom(roomId);
+    @Get('room/:roomNumber')
+    findByRoom(@Param('roomNumber') roomNumber: string): Promise<student[]> {
+        return this.studentService.findByRoom(roomNumber);
     }
 
     @Get('grade/:grade')

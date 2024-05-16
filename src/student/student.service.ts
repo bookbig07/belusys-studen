@@ -58,13 +58,13 @@ export class studentService {
         .getMany();
     }
 
-    async findByRoom(roomId: string): Promise<student[]> {
+    async findByRoom(roomNumber: string): Promise<student[]> {
         const studentsInRoom = await this.studentRepository.find({
-            where: { classroom: { roomNumber: roomId } },
+            where: { classroom: { roomNumber: roomNumber } },
             relations: ['classroom'],
         });
         if (!studentsInRoom || studentsInRoom.length === 0) {
-            throw new NotFoundException(`No students found in classroom with room number ${roomId}`);
+            throw new NotFoundException(`No students found in classroom with room number ${roomNumber}`);
         }
         return studentsInRoom;
     }

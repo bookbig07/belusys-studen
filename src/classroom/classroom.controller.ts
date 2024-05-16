@@ -17,9 +17,9 @@ export class classroomController {
       return this.classroomService.findbyId(+id);
     }
 
-    @Get('room/:roomId')
-    findbyroomId(@Param('roomId') roomId: string): Promise<classroom[]> {
-      return this.classroomService.findbyroomId(roomId);
+    @Get('room/:roomNumber')
+    findbyroomId(@Param('roomNumber') roomNumber: string): Promise<classroom[]> {
+      return this.classroomService.findbyroomId(roomNumber);
     }
   
     @Get('roomName/:roomName')
