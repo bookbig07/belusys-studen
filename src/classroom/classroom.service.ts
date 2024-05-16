@@ -18,6 +18,10 @@ export class classroomService {
         return this.classroomRepository.find({ where: { id } });
     }
 
+    async findbyRoomId(roomId: string): Promise<classroom[]> {
+        return this.classroomRepository.find({ where: { roomNumber : roomId } });
+    }
+
     create(classroom : classroom): Promise<classroom> {
         return this.classroomRepository.save(classroom);
     }

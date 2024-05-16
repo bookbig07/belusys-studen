@@ -16,19 +16,24 @@ export class classroomController {
     findbyId(@Param('id') id: string): Promise<classroom[]> {
       return this.classroomService.findbyId(+id);
     }
+
+    @Get('room/:roomId')
+    findbyRoomId(@Param('roomId') roomId: string): Promise<classroom[]> {
+      return this.classroomService.findbyRoomId(roomId);
+    }
   
     @Post()
     create(@Body() classroom: classroom): Promise<classroom> {
       return this.classroomService.create(classroom);
     }
-  
-    @Delete(':id')
-    remove(@Param('id') id: string): Promise<void> {
-      return this.classroomService.remove(+id);
-    }
 
     @Put(':id')
     async update(@Param('id') id: number, @Body() classroom: classroom): Promise<classroom[]> {
       return this.classroomService.update(id, classroom);
+    }
+  
+    @Delete(':id')
+    remove(@Param('id') id: string): Promise<void> {
+      return this.classroomService.remove(+id);
     }
 }
