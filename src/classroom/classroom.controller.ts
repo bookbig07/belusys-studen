@@ -18,10 +18,20 @@ export class classroomController {
     }
 
     @Get('room/:roomId')
-    findbyRoomId(@Param('roomId') roomId: string): Promise<classroom[]> {
-      return this.classroomService.findbyRoomId(roomId);
+    findbyroomId(@Param('roomId') roomId: string): Promise<classroom[]> {
+      return this.classroomService.findbyroomId(roomId);
     }
   
+    @Get('roomName/:roomName')
+    findbyroomName(@Param('roomName') roomName: string): Promise<classroom[]> {
+      return this.classroomService.findbyroomName(roomName);
+    }
+
+    @Get('homeroomTeacher/:teacher')
+    findbyteacher(@Param('teacher') teacher: string): Promise<classroom[]> {
+      return this.classroomService.findbyteacher(teacher);
+    }
+
     @Post()
     create(@Body() classroom: classroom): Promise<classroom> {
       return this.classroomService.create(classroom);
