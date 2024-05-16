@@ -3,10 +3,6 @@ import { StudentModule } from './student/student.module';
 import { ClassroomModule } from './classroom/classroom.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { join } from 'path';
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -19,10 +15,6 @@ import { join } from 'path';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    // GraphQLModule.forRoot<ApolloDriverConfig>({
-    //   driver: ApolloDriver,
-    //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-    // }),
     StudentModule,
     ClassroomModule
   ],
