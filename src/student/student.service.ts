@@ -26,6 +26,11 @@ export class studentService {
         await this.studentRepository.delete(id);
     }
 
+    async update(id: number, students: student): Promise<student[]> {
+        await this.studentRepository.update(id, students);
+        return this.studentRepository.find({ where: { id } });
+    }
+
     async findAdvanceSearch(students :  string): Promise<student[]> {
         return this.studentRepository.createQueryBuilder('student')
         .where('student.firstName LIKE :keyword', { keyword: `%${students}%` })

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete , Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete , Put } from '@nestjs/common';
 import { studentService } from './student.service';
 import { student } from './student.entity';
 
@@ -28,8 +28,13 @@ export class studentController {
       return this.studentService.remove(+id);
     }
 
+    @Put(':id')
+    async update(@Param('id') id: number, @Body() student: student): Promise<student[]> {
+      return this.studentService.update(id, student);
+    }
+
     @Get('search/:students')
     searchByKeyword(@Param('students') students: string): Promise<student[]> {
-        return this.studentService.findAdvanceSearch(students);
+      return this.studentService.findAdvanceSearch(students);
     }
 }
