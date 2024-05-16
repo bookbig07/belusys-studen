@@ -14,8 +14,13 @@ export class studentController {
     }
   
     @Get(':id')
-    findbyId(@Param('id') id: string): Promise<student[]> {
+    findbyId(@Param('id') id: number): Promise<student> {
       return this.studentService.findbyId(+id);
+    }
+
+    @Get('studentNumber/:studentNumber')
+    findbystudentNumber(@Param('studentNumber') studentNumber: string): Promise<student> {
+      return this.studentService.findbystudentNumber(studentNumber);
     }
 
     @Get('room/:roomId')
@@ -42,9 +47,9 @@ export class studentController {
     create(@Body() student: student): Promise<student> {
       return this.studentService.create(student);
     }
-    
+
     @Put(':id')
-    async update(@Param('id') id: number, @Body() student: student): Promise<student[]> {
+    async update(@Param('id') id: number, @Body() student: student): Promise<student> {
       return this.studentService.update(id, student);
     }
   

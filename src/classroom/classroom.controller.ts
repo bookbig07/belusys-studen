@@ -13,7 +13,7 @@ export class classroomController {
     }
   
     @Get(':id')
-    findbyId(@Param('id') id: string): Promise<classroom[]> {
+    findbyId(@Param('id') id: number): Promise<classroom> {
       return this.classroomService.findbyId(+id);
     }
 
@@ -37,6 +37,11 @@ export class classroomController {
       return this.classroomService.create(classroom);
     }
 
+    @Post('addInClass/:classroomId/:studentId')
+    addStudentInClassroom(@Param('classroomId') classroomId: number, @Param('studentId') studentId: number) {
+        return this.classroomService.addStudentInClassroom(classroomId, studentId);
+    }
+
     @Put(':id')
     async update(@Param('id') id: number, @Body() classroom: classroom): Promise<classroom[]> {
       return this.classroomService.update(id, classroom);
@@ -45,5 +50,10 @@ export class classroomController {
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
       return this.classroomService.remove(+id);
+    }
+
+    @Delete('DelInClass/:classroomId/:studentId')
+    removeStudentFromClassroom(@Param('classroomId') classroomId: number, @Param('studentId') studentId: number) {
+        return this.classroomService.removeStudentFromClassroom(classroomId, studentId);
     }
 }

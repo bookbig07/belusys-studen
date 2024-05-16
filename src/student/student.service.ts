@@ -1,8 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable , NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { student } from './student.entity';
-import { classroom } from '../classroom/classroom.entity';
 
 @Injectable()
 export class studentService {
@@ -15,8 +14,20 @@ export class studentService {
         return this.studentRepository.find();
     }
 
-    async findbyId(id: number): Promise<student[]> {
-        return this.studentRepository.find({ where: { id } });
+    async findbyId(id: number): Promise<student> {
+        const foundStudent = await this.studentRepository.findOne({ where: { id } });
+        if (!foundStudent) {
+            throw new NotFoundException(`Student with ID ${id} not found`);
+        }
+        return foundStudent;
+    }
+
+    async findbystudentNumber(studentNumber: string): Promise<student> {
+        const foundStudent = await this.studentRepository.findOne({ where: { studentNumber : studentNumber } });
+        if (!foundStudent) {
+            throw new NotFoundException(`Student with ID ${studentNumber} not found`);
+        }
+        return foundStudent;
     }
 
     create(students: student): Promise<student> {
@@ -24,12 +35,19 @@ export class studentService {
     }
 
     async remove(id: number): Promise<void> {
-        await this.studentRepository.delete(id);
+        const result = await this.studentRepository.delete(id);
+        if (result.affected === 0) {
+            throw new NotFoundException(`Student with ID ${id} not found`);
+        }
     }
 
-    async update(id: number, students: student): Promise<student[]> {
+    async update(id: number, students: student): Promise<student> {
+        const foundStudent = await this.studentRepository.findOne({ where: { id } });
+        if (!foundStudent) {
+            throw new NotFoundException(`Student with ID ${id} not found`);
+        }
         await this.studentRepository.update(id, students);
-        return this.studentRepository.find({ where: { id } });
+        return this.studentRepository.findOne({ where: { id } });
     }
 
     async findAdvanceSearch(students :  string): Promise<student[]> {
@@ -41,14 +59,35 @@ export class studentService {
     }
 
     async findByRoom(roomId: string): Promise<student[]> {
-        return this.studentRepository.find({ where: { classroom: { roomNumber : roomId } }, relations: ['classroom'] });
+        const studentsInRoom = await this.studentRepository.find({
+            where: { classroom: { roomNumber: roomId } },
+            relations: ['classroom'],
+        });
+        if (!studentsInRoom || studentsInRoom.length === 0) {
+            throw new NotFoundException(`No students found in classroom with room number ${roomId}`);
+        }
+        return studentsInRoom;
     }
-    
+
     async findByGrade(grade: string): Promise<student[]> {
-        return this.studentRepository.find({ where: { grade }, relations: ['classroom'] });
+        const studentsInGrade = await this.studentRepository.find({
+            where: { grade },
+            relations: ['classroom'],
+        });
+        if (!studentsInGrade || studentsInGrade.length === 0) {
+            throw new NotFoundException(`No students found in grade ${grade}`);
+        }
+        return studentsInGrade;
     }
-    
+
     async findByAcademicYear(year: string): Promise<student[]> {
-        return this.studentRepository.find({ where: { classroom : { academicYear : year} }, relations: ['classroom'] });
+        const studentsInAcademicYear = await this.studentRepository.find({
+            where: { classroom: { academicYear: year } },
+            relations: ['classroom'],
+        });
+        if (!studentsInAcademicYear || studentsInAcademicYear.length === 0) {
+            throw new NotFoundException(`No students found in academic year ${year}`);
+        }
+        return studentsInAcademicYear;
     }
 }
