@@ -27,4 +27,9 @@ export class studentController {
     remove(@Param('id') id: string): Promise<void> {
       return this.studentService.remove(+id);
     }
+
+    @Get('search/:students')
+    searchByKeyword(@Param('students') students: string): Promise<student[]> {
+        return this.studentService.findAdvanceSearch(students);
+    }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FindOneOptions , Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { student } from './student.entity';
 
 @Injectable()
@@ -24,5 +24,13 @@ export class studenService {
 
     async remove(id: number): Promise<void> {
         await this.studentRepository.delete(id);
+    }
+
+    async findAdvanceSearch(students :  string): Promise<student[]> {
+        return this.studentRepository.createQueryBuilder('student')
+        .where('student.firstName LIKE :keyword', { keyword: `%${students}%` })
+        .orWhere('student.lastName LIKE :keyword', { keyword: `%${students}%` })
+        .orWhere('student.studentNumber LIKE :keyword', { keyword: `%${students}%` })
+        .getMany();
     }
 }
